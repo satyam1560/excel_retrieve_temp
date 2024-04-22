@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
       children: [
         SizedBox(
           child: ElevatedButton(
