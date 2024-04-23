@@ -9,17 +9,15 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          child: ElevatedButton(
-            onPressed: () {
-              selectOnboardingExcelFile();
-            },
-            child: const Text('Excel update'),
-          ),
+    return Center(
+      child: SizedBox(
+        child: ElevatedButton(
+          onPressed: () {
+            selectOnboardingExcelFile();
+          },
+          child: const Text('Excel update'),
         ),
-      ],
+      ),
     );
   }
 }
@@ -200,8 +198,10 @@ Future<void> uploadToSubjectAllocation({
   required String schoolId,
   required List<Map<String, dynamic>> excelData,
 }) async {
-  CollectionReference staffCollectionReference =
-      FirebaseFirestore.instance.collection('Staff');
+  CollectionReference staffCollectionReference = FirebaseFirestore.instance
+      .collection('Schools')
+      .doc()
+      .collection('Staff');
   WriteBatch subAllBatch = FirebaseFirestore.instance.batch();
 
   try {
@@ -278,8 +278,11 @@ Future<void> uploadToStudentInformation({
 
       Timestamp timestamp = timeStampComverter(birthDateString);
 
-      DocumentReference<Map<String, dynamic>> studDocRef =
-          firestore.collection(studentCollection).doc();
+      DocumentReference<Map<String, dynamic>> studDocRef = firestore
+          .collection('Schools')
+          .doc(schoolId)
+          .collection(studentCollection)
+          .doc();
 
       studentBatch.set(
         studDocRef,
@@ -329,8 +332,11 @@ Future<void> uploadToStaffInformation({
       List<String> roles = [];
       roles.add(data['staff_job_access']);
 
-      DocumentReference<Map<String, dynamic>> staffDocRef =
-          firestore.collection(staffCollection).doc();
+      DocumentReference<Map<String, dynamic>> staffDocRef = firestore
+          .collection('Schools')
+          .doc(schoolId)
+          .collection(staffCollection)
+          .doc();
 
       staffBatch.set(
         staffDocRef,
