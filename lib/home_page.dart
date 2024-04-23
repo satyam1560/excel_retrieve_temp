@@ -10,7 +10,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Colors.black,
+      color: Colors.red,
       child: SizedBox(
         child: ElevatedButton(
           onPressed: () {
